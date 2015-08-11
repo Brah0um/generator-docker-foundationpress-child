@@ -1,0 +1,35 @@
+mysql:
+  image: mysql:latest
+  environment:
+   - MYSQL_ROOT_PASSWORD=<%= conf.databaseRootPassword %>
+  volumes:
+   - /var/docker/mysql/<%= conf.projectName %>:/var/lib/mysql
+app:
+<% if (conf.gulp) { %>  image: ovski/wordpress-dev:latest<% } else { %>  image: ovski/wordpress:latest<% } %>
+  volumes:
+   - .:/var/www
+   - /var/log/docker/nginx/<%= conf.projectName %>:/var/log/nginx
+  links:
+   - elk:syslog_server
+   - mysql:mysql
+  ports:
+   - <%= conf.ports.app %>:80
+<% if (conf.gulp) { %>   - <%= conf.ports.livereload %>:35729<% } %>
+  environment:
+   - VIRTUAL_HOST=dev.<%= conf.projectName %>.fr
+adminer:
+  image: clue/adminer
+  environment:
+   - VIRTUAL_HOST=dev.adminer.<%= conf.projectName %>.fr
+  ports:
+   - <%= conf.ports.adminer %>:80
+  links:
+   - mysql:mysql
+elk:
+  image: ovski/elk:elasticdump
+  environment:
+   - VIRTUAL_HOST=dev.logs.<%= conf.projectName %>.fr
+  volumes:
+   - /var/docker/elk/<%= conf.projectName %>:/data
+  ports:
+    - <%= conf.ports.elk %>:80

@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @param  string  $filename
+ * @param  string  $cwd: The current working directory (ex: /js, /css)
+ */
+function the_rev_path($filename, $cwd) {
+    $manifestFile = __DIR__.'/../../../../../manifest/rev-manifest.json';
+
+    // get_stylesheet_directory_uri() retrieves stylesheet directory URI for the current theme/child theme
+    // https://codex.wordpress.org/Function_Reference/get_stylesheet_directory_uri
+    $path = get_stylesheet_directory_uri() . $cwd;
+
+    if (file_exists($manifestFile)) {
+        $manifest = json_decode(file_get_contents($manifestFile), TRUE);
+    } else {
+        $manifest = [];
+    }
+
+    if (array_key_exists($filename, $manifest)) {
+        $path = sprintf('%s/%s', $path, $manifest[$filename]);
+    } else {
+        $path = sprintf('%s/%s', $path, $filename);
+    }
+
+    echo $path;
+}

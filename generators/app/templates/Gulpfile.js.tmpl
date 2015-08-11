@@ -1,0 +1,77 @@
+'use strict';
+
+var src              = [],
+    web              = [],
+    theme            = '<%= conf.themeName %>'
+;
+
+src['style']         = 'scss/**/*.scss';
+src['view']          = 'wordpress/wp-content/themes/'+theme+'/**/*.php';
+src['script']        = ['wordpress/wp-content/themes/'+theme+'/js/**/*.js', '!wordpress/wp-content/themes/'+theme+'/js/app.min-*.js'];
+src['manifest']      = 'manifest/';
+
+web['style']         = 'wordpress/wp-content/themes/'+theme+'/css/';
+web['script']        = 'wordpress/wp-content/themes/'+theme+'/js/';
+
+var chmod            = require('gulp-chmod'),
+    concat           = require('gulp-concat'),
+    del              = require('del'),
+    gulp             = require('gulp'),
+    jshint           = require('gulp-jshint'),
+    minifycss        = require('gulp-minify-css'),
+    sass             = require('gulp-sass'),
+    livereload       = require('gulp-livereload'),
+    rev              = require('gulp-rev'),
+    uglify           = require('gulp-uglify')
+;
+
+// Task to watch files
+gulp.task('watch', ['styles', 'scripts'], function() {
+    livereload.listen();
+    gulp.watch(src['style'], ['styles']);
+    gulp.watch(src['script'], ['scripts']);
+    gulp.watch(src['view'], ['views']);
+});
+
+// Task to compile Sass files
+gulp.task('styles', function() {
+    // Remove previous rev file
+    del(web['style']+'/style.min-*.css');
+
+    // build css files
+    gulp.src([src['style']])
+        .pipe(sass({ errLogToConsole: true }))
+        .pipe(minifycss({keepSpecialComments: 0}))
+        .pipe(concat({path: 'style.min.css'}))
+        .pipe(rev())
+        .pipe(chmod(775))
+        .pipe(gulp.dest(web['style']))
+        .pipe(rev.manifest(src['manifest']+'rev-manifest.json', {base: src['manifest'], merge: true}))
+        .pipe(gulp.dest(src['manifest']))
+        .pipe(livereload())
+    ;
+});
+
+// Task to minify js file
+gulp.task('scripts', function() {
+    del(web['script']+'app.min-*.js');
+
+    gulp.src(src['script'])
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(uglify())
+        .pipe(concat({path: 'app.min.js'}))
+        .pipe(rev())
+        .pipe(chmod(775))
+        .pipe(gulp.dest(web['script']))
+        .pipe(rev.manifest(src['manifest']+'rev-manifest.json', {base: src['manifest'], merge: true}))
+        .pipe(gulp.dest(src['manifest']))
+        .pipe(livereload())
+    ;
+});
+
+gulp.task('views', function() {
+    gulp.src([src['view']])
+        .pipe(livereload())
+    ;
+});
