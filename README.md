@@ -23,6 +23,7 @@ Once the files are generated, just run the following commands:
 $ chmod +x run.sh
 $ ./run.sh
 $ make npm-install
+$ make bower-install
 ```
 
 This script will add host entries according to your answers to the generator.

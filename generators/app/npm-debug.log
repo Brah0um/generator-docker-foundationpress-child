@@ -1,0 +1,31 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/brahim/.nvm/versions/node/v0.12.7/bin/node',
+1 verbose cli   '/home/brahim/.nvm/versions/node/v0.12.7/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   '-f' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 warn using --force I sure hope you know what you are doing.
+5 verbose publish [ '.' ]
+6 silly cache add args [ '.', null ]
+7 verbose cache add spec .
+8 silly cache add parsed spec { raw: '.',
+8 silly cache add   scope: null,
+8 silly cache add   name: null,
+8 silly cache add   rawSpec: '.',
+8 silly cache add   spec: '/home/brahim/Workspace/generator-docker-foundationpress-child/generators/app',
+8 silly cache add   type: 'local' }
+9 error addLocal Could not install /home/brahim/Workspace/generator-docker-foundationpress-child/generators/app
+10 verbose stack Error: EISDIR, read
+10 verbose stack     at Error (native)
+11 verbose cwd /home/brahim/Workspace/generator-docker-foundationpress-child/generators/app
+12 error Linux 3.19.0-25-generic
+13 error argv "/home/brahim/.nvm/versions/node/v0.12.7/bin/node" "/home/brahim/.nvm/versions/node/v0.12.7/bin/npm" "publish" "-f"
+14 error node v0.12.7
+15 error npm  v2.11.3
+16 error code EISDIR
+17 error errno -21
+18 error EISDIR, read
+19 error If you need help, you may report this error at:
+19 error     <https://github.com/npm/npm/issues>
+20 verbose exit [ -21, true ]

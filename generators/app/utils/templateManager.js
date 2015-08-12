@@ -36,6 +36,11 @@ TemplateManager.prototype.copyTemplates = function () {
         this.copyTemplate('package.json.tmpl', 'package.json');
     }
 
+
+    if (this.conf.foundation == true) {
+        this.copyTemplate('bower.json.tmpl', 'bower.json');
+    }
+
     if (this.conf.makefile == true) {
         this.copyTemplate('Makefile.tmpl', 'Makefile');
     }

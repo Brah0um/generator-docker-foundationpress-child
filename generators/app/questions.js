@@ -51,6 +51,15 @@ var questions =
     },
     {
         type: "confirm",
+        name: "foundation",
+        message: "Do you want to add foundation via bower",
+        default: false,
+        when: function (answers) {
+            return answers.gulp;
+        }
+    },
+    {
+        type: "confirm",
         name: "makefile",
         message: "Do you want to generate a Makefile? A makefile provide shortcuts, for example to run commands in docker containers",
         default: false
