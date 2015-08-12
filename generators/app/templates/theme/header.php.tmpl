@@ -16,6 +16,7 @@
     <?php wp_head(); ?>
     <link rel="stylesheet" type="text/css" media="all" href="<?php the_rev_path('style.min.css', '/css'); ?>" />
     <% if (conf.gulp) { %><script src="http://127.0.0.1:<%= conf.ports.livereload %>/livereload.js?ext=Chrome&amp;extver=2.1.0"></script><% } %>
+    <script src="<?php the_rev_path('app.min.js', '/js'); ?>"></script>
 </head>
 
 <body <?php body_class(); ?>>
