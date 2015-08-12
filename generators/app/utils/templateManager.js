@@ -28,6 +28,7 @@ TemplateManager.prototype.copyTemplates = function () {
     this.copyTemplate('theme/library/enqueue-scripts.php.tmpl', themeRoot+'/library/enqueue-scripts.php');
     this.copyTemplate('theme/library/get-missing-content.php.tmpl', themeRoot+'/library/get-missing-content.php');
     this.copyTemplate('theme/library/the-rev-path.php.tmpl', themeRoot+'/library/the-rev-path.php');
+    this.copyTemplate('theme/js/init-foundation.js.tmpl', themeRoot+'/js/init-foundation.js');
 
     if (this.conf.gulp == true) {
         this.copyTemplate('Gulpfile.js.tmpl', 'Gulpfile.js');
