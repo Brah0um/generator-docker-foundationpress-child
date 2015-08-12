@@ -1,5 +1,5 @@
 {
-  "name": "generator-docker-foundationpress",
+  "name": "generator-docker-foundationpress-child",
   "version": "0.1.1",
   "description": "A generator to get started super quickly on a wordpess project with foundationpress install & a child theme configured, with sass and livereload features",
   "files": [
